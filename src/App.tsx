@@ -2,6 +2,10 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { useForm } from "react-hook-form";
 import logo from "./assets/images/logo.png";
+import relatorio from "./assets/images/relatorio.png";
+import fundo from "./assets/images/fundo.png";
+
+
 import {
   CheckCircle2,
   ChevronRight,
@@ -56,9 +60,18 @@ const Navbar = () => (
 
 const Hero = () => (
   <section className="relative pt-32 pb-20 overflow-hidden min-h-[80vh] flex items-center">
-    <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full pointer-events-none">
+    <div className="absolute top-0 right-0 w-full h-full pointer-events-none overflow-hidden">
       <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-primary/20 blur-[120px] rounded-full"></div>
       <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-secondary/10 blur-[120px] rounded-full"></div>
+      <img 
+        src={fundo} 
+        alt="Background effect" 
+        className="absolute top-0 right-[-10%] md:right-0 w-[80%] h-full object-cover opacity-60 mix-blend-screen mask-image-gradient"
+        style={{
+          maskImage: 'linear-gradient(to left, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 100%)',
+          WebkitMaskImage: 'linear-gradient(to left, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 100%)'
+        }}
+      />
     </div>
 
     <div className="max-w-7xl mx-auto px-6 relative z-10 w-full">
@@ -491,29 +504,26 @@ const GrandFinale = () => (
           </div>
 
           <div className="relative">
-            <div className="bg-[#0c0e12] rounded-2xl border border-white/10 p-6 shadow-2xl rotate-2 hover:rotate-0 transition-transform duration-500">
-              <div className="flex items-center justify-between mb-6">
-                <div className="flex items-center gap-2">
-                  <PieChart className="w-5 h-5 text-primary" />
-                  <span className="text-xs font-bold text-white/40 uppercase tracking-widest">Relatório de Inteligência</span>
+            <div className="bg-[#0c0e12] rounded-2xl border border-white/10 overflow-hidden shadow-2xl rotate-2 hover:rotate-0 transition-transform duration-500 group">
+              <div className="relative">
+                <img 
+                  src={relatorio} 
+                  alt="Relatório de Inteligência" 
+                  className="w-full h-auto object-cover opacity-60 group-hover:opacity-100 transition-opacity duration-500"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#0c0e12] via-transparent to-transparent pointer-events-none"></div>
+                
+                <div className="absolute top-6 left-6 flex items-center justify-between right-6">
+                  <div className="flex items-center gap-2">
+                    <PieChart className="w-5 h-5 text-primary" />
+                    <span className="text-xs font-bold text-white/80 uppercase tracking-widest shadow-sm">Relatório de Inteligência</span>
+                  </div>
+                  <div className="px-2 py-1 bg-primary/20 text-primary text-[10px] font-bold rounded border border-primary/30 backdrop-blur-sm">CONFIDENCIAL</div>
                 </div>
-                <div className="px-2 py-1 bg-primary/10 text-primary text-[10px] font-bold rounded">CONFIDENCIAL</div>
               </div>
 
-              <div className="space-y-4">
-                <div className="h-4 bg-white/5 rounded w-3/4"></div>
-                <div className="h-4 bg-white/5 rounded w-1/2"></div>
-                <div className="grid grid-cols-3 gap-2 py-4">
-                  <div className="h-20 bg-primary/20 rounded-lg border border-primary/20"></div>
-                  <div className="h-20 bg-white/5 rounded-lg"></div>
-                  <div className="h-20 bg-white/5 rounded-lg"></div>
-                </div>
-                <div className="h-4 bg-white/5 rounded w-full"></div>
-                <div className="h-4 bg-white/5 rounded w-5/6"></div>
-              </div>
-
-              <div className="mt-6 flex justify-center">
-                <div className="px-4 py-2 bg-primary text-on-primary text-xs font-bold rounded-lg shadow-lg shadow-primary/20">
+              <div className="p-6 pt-2 text-center bg-[#0c0e12]">
+                <div className="px-4 py-2 bg-primary text-on-primary text-xs font-bold rounded-lg shadow-lg shadow-primary/20 inline-block hover:scale-105 transition-transform cursor-pointer">
                   VER INSIGHTS ESTRATÉGICOS
                 </div>
               </div>
