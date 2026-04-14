@@ -63,9 +63,9 @@ const Hero = () => (
     <div className="absolute top-0 right-0 w-full h-full pointer-events-none overflow-hidden">
       <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-primary/20 blur-[120px] rounded-full"></div>
       <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-secondary/10 blur-[120px] rounded-full"></div>
-      <img 
-        src={fundo} 
-        alt="Background effect" 
+      <img
+        src={fundo}
+        alt="Background effect"
         className="absolute top-0 right-[-10%] md:right-0 w-[80%] h-full object-cover opacity-60 mix-blend-screen mask-image-gradient"
         style={{
           maskImage: 'linear-gradient(to left, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 100%)',
@@ -89,7 +89,7 @@ const Hero = () => (
             <span className="text-primary">Comece a colher reuniões.</span>
           </h1>
           <p className="text-xl text-white/60 leading-relaxed mb-10 max-w-2xl">
-            Ative sua máquina de prospecção automática e receba interessados reais direto no seu WhatsApp. Sem desperdício de tempo, sem "caça ao tesouro". Nós só ganhamos quando você bate sua meta.
+            Ative sua máquina de prospecção automática e receba interessados reais direto no seu WhatsApp. Sem desperdício de tempo, sem "caça ao tesouro". Seu sucesso é o nosso modelo de negócio.
           </p>
           <div className="flex flex-col sm:flex-row gap-6 items-center">
             <a
@@ -506,13 +506,13 @@ const GrandFinale = () => (
           <div className="relative">
             <div className="bg-[#0c0e12] rounded-2xl border border-white/10 overflow-hidden shadow-2xl rotate-2 hover:rotate-0 transition-transform duration-500 group">
               <div className="relative">
-                <img 
-                  src={relatorio} 
-                  alt="Relatório de Inteligência" 
+                <img
+                  src={relatorio}
+                  alt="Relatório de Inteligência"
                   className="w-full h-auto object-cover opacity-60 group-hover:opacity-100 transition-opacity duration-500"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-[#0c0e12] via-transparent to-transparent pointer-events-none"></div>
-                
+
                 <div className="absolute top-6 left-6 flex items-center justify-between right-6">
                   <div className="flex items-center gap-2">
                     <PieChart className="w-5 h-5 text-primary" />
