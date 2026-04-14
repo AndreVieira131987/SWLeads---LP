@@ -1,9 +1,12 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { useForm } from "react-hook-form";
+import { BrowserRouter as Router, Routes, Route, Link, useLocation } from "react-router-dom";
 import logo from "./assets/images/logo.png";
 import relatorio from "./assets/images/relatorio.png";
 import fundo from "./assets/images/fundo.png";
+import Privacy from "./pages/Privacy";
+import Terms from "./pages/Terms";
 
 
 import {
@@ -44,15 +47,15 @@ interface FormData {
 const Navbar = () => (
   <nav className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-md border-b border-white/5">
     <div className="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center w-full">
-      <div className="flex items-center gap-2">
+      <Link to="/" className="flex items-center gap-2">
         <img src={logo} alt="SW Leads Logo" className="w-10 h-10 object-contain" />
         <span className="text-xl font-bold tracking-tight text-white">Leads <span className="text-primary">Inteligentes</span></span>
-      </div>
+      </Link>
       <div className="hidden md:flex items-center gap-8 text-sm font-medium text-white/60">
-        <a href="#dor" className="hover:text-primary transition-colors">O Problema</a>
-        <a href="#solucao" className="hover:text-primary transition-colors">Solução</a>
-        <a href="#diferencial" className="hover:text-primary transition-colors">Diferencial</a>
-        <a href="#formulario" className="bg-primary/10 text-primary px-4 py-2 rounded-full border border-primary/20 hover:bg-primary/20 transition-all">
+        <a href="/#dor" className="hover:text-primary transition-colors">O Problema</a>
+        <a href="/#solucao" className="hover:text-primary transition-colors">Solução</a>
+        <a href="/#diferencial" className="hover:text-primary transition-colors">Diferencial</a>
+        <a href="/#formulario" className="bg-primary/10 text-primary px-4 py-2 rounded-full border border-primary/20 hover:bg-primary/20 transition-all">
           Quero Leads
         </a>
       </div>
@@ -556,7 +559,7 @@ const GrandFinale = () => (
 );
 
 const Footer = () => (
-  <footer className="py-12 border-t border-white/5">
+  <footer className="py-12 border-t border-white/5 bg-background relative z-10">
     <div className="max-w-7xl mx-auto px-6">
       <div className="flex flex-col md:flex-row justify-between items-center gap-8">
         <div className="flex items-center gap-2">
@@ -565,8 +568,8 @@ const Footer = () => (
         </div>
 
         <div className="flex gap-8 text-sm text-white/40">
-          <a href="#" className="hover:text-white transition-colors">Privacidade</a>
-          <a href="#" className="hover:text-white transition-colors">Termos</a>
+          <Link to="/privacidade" className="hover:text-white transition-colors">Privacidade</Link>
+          <Link to="/termos" className="hover:text-white transition-colors">Termos</Link>
           <a href="#" className="hover:text-white transition-colors">Contato</a>
         </div>
 
@@ -578,20 +581,41 @@ const Footer = () => (
   </footer>
 );
 
+const Home = () => (
+  <main>
+    <Hero />
+    <PainSection />
+    <SolutionSection />
+    <DifferentialSection />
+    <PartnershipSection />
+    <QualificationForm />
+    <GrandFinale />
+  </main>
+);
+
+const ScrollToTop = () => {
+  const { pathname } = useLocation();
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
+  return null;
+};
+
 export default function App() {
   return (
-    <div className="min-h-screen bg-background text-on-background font-body selection:bg-primary selection:text-on-primary">
-      <Navbar />
-      <main>
-        <Hero />
-        <PainSection />
-        <SolutionSection />
-        <DifferentialSection />
-        <PartnershipSection />
-        <QualificationForm />
-        <GrandFinale />
-      </main>
-      <Footer />
-    </div>
+    <Router>
+      <ScrollToTop />
+      <div className="min-h-screen bg-background text-on-background font-body selection:bg-primary selection:text-on-primary flex flex-col">
+        <Navbar />
+        <div className="flex-grow">
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/privacidade" element={<Privacy />} />
+            <Route path="/termos" element={<Terms />} />
+          </Routes>
+        </div>
+        <Footer />
+      </div>
+    </Router>
   );
 }
