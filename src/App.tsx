@@ -28,7 +28,9 @@ import {
 
 interface FormData {
   name: string;
+  city: string;
   company: string;
+  state: string;
   email: string;
   whatsapp: string;
   icp: string;
@@ -377,6 +379,24 @@ const QualificationForm = () => {
                     placeholder="Nome da sua empresa"
                   />
                   {errors.company && <span className="text-red-400 text-xs">Campo obrigatório</span>}
+                </div>
+                <div className="space-y-2">
+                  <label className="text-sm font-bold text-white/80 ml-1">Cidade</label>
+                  <input
+                    {...register("city", { required: true })}
+                    className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all"
+                    placeholder="Sua cidade"
+                  />
+                  {errors.city && <span className="text-red-400 text-xs">Campo obrigatório</span>}
+                </div>
+                <div className="space-y-2">
+                  <label className="text-sm font-bold text-white/80 ml-1">Estado (UF)</label>
+                  <input
+                    {...register("state", { required: true })}
+                    className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all"
+                    placeholder="Ex: SP"
+                  />
+                  {errors.state && <span className="text-red-400 text-xs">Campo obrigatório</span>}
                 </div>
                 <div className="space-y-2">
                   <label className="text-sm font-bold text-white/80 ml-1">E-mail Corporativo</label>
