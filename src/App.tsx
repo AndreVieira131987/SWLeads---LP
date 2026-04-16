@@ -337,10 +337,53 @@ const PartnershipSection = () => (
 const QualificationForm = () => {
   const { register, handleSubmit, formState: { errors } } = useForm<FormData>();
   const [submitted, setSubmitted] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
-  const onSubmit = (data: FormData) => {
-    console.log(data);
-    setSubmitted(true);
+  const onSubmit = async (data: FormData) => {
+    setLoading(true);
+    setError(null);
+    try {
+      const token = import.meta.env.VITE_SW_TOKEN;
+      if (!token) {
+        throw new Error("O Token VITE_SW_TOKEN não foi encontrado. Você precisa parar (Ctrl+C) e rodar o 'npm run dev' novamente para o Vite ler o .env");
+      }
+
+      const apiUrl = import.meta.env.DEV 
+        ? "/api/webhook/lp" 
+        : "https://sw-leads-dashboard-production.up.railway.app/api/webhook/lp";
+
+      const response = await fetch(apiUrl, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "x-sw-token": token
+        },
+        body: JSON.stringify({
+          nome: data.name,
+          empresa: data.company,
+          email: data.email,
+          whatsapp: data.whatsapp,
+          cidade: data.city,
+          estado: data.state,
+          icp: data.icp,
+          metaVolume: Number(data.targetVolume) || 0,
+          volumeAtual: Number(data.currentVolume) || 0,
+          capacidadeAtendimento: Number(data.capacity) || 0
+        })
+      });
+
+      if (!response.ok) {
+        throw new Error("Erro ao enviar formulário");
+      }
+
+      setSubmitted(true);
+    } catch (err) {
+      console.error(err);
+      setError("Ocorreu um erro ao enviar seus dados. Tente novamente.");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -464,11 +507,13 @@ const QualificationForm = () => {
 
               <button
                 type="submit"
-                className="w-full py-5 bg-primary text-on-primary font-bold rounded-2xl text-lg flex items-center justify-center gap-3 hover:scale-[1.02] transition-transform shadow-xl shadow-primary/20"
+                disabled={loading}
+                className="w-full py-5 bg-primary text-on-primary font-bold rounded-2xl text-lg flex items-center justify-center gap-3 hover:scale-[1.02] transition-transform shadow-xl shadow-primary/20 disabled:opacity-70 disabled:hover:scale-100 disabled:cursor-not-allowed"
               >
-                ATIVAR MINHA MÁQUINA DE PROSPECÇÃO
-                <Zap className="w-6 h-6 fill-current" />
+                {loading ? "ENVIANDO..." : "ATIVAR MINHA MÁQUINA DE PROSPECÇÃO"}
+                {!loading && <Zap className="w-6 h-6 fill-current" />}
               </button>
+              {error && <p className="text-red-400 text-center mt-4">{error}</p>}
             </motion.form>
           ) : (
             <motion.div
