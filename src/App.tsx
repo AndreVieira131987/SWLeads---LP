@@ -32,7 +32,7 @@ import {
 interface FormData {
   name: string;
   city: string;
-  company: string;
+  cnpj: string;
   state: string;
   email: string;
   whatsapp: string;
@@ -361,7 +361,7 @@ const QualificationForm = () => {
         },
         body: JSON.stringify({
           nome: data.name,
-          empresa: data.company,
+          cnpj: data.cnpj,
           email: data.email,
           whatsapp: data.whatsapp,
           cidade: data.city,
@@ -418,13 +418,17 @@ const QualificationForm = () => {
                   {errors.name && <span className="text-red-400 text-xs">Campo obrigatório</span>}
                 </div>
                 <div className="space-y-2">
-                  <label className="text-sm font-bold text-white/80 ml-1">Empresa</label>
+                  <label className="text-sm font-bold text-white/80 ml-1">CNPJ</label>
                   <input
-                    {...register("company", { required: true })}
+                    {...register("cnpj", { 
+                      required: true,
+                      pattern: /^\d{2}\.\d{3}\.\d{3}\/\d{4}\-\d{2}$|^\d{14}$/
+                    })}
                     className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all"
-                    placeholder="Nome da sua empresa"
+                    placeholder="00.000.000/0000-00"
                   />
-                  {errors.company && <span className="text-red-400 text-xs">Campo obrigatório</span>}
+                  {errors.cnpj?.type === 'required' && <span className="text-red-400 text-xs">Campo obrigatório</span>}
+                  {errors.cnpj?.type === 'pattern' && <span className="text-red-400 text-xs">CNPJ inválido (ex: 00.000.000/0000-00)</span>}
                 </div>
                 <div className="space-y-2">
                   <label className="text-sm font-bold text-white/80 ml-1">Cidade</label>
@@ -474,6 +478,7 @@ const QualificationForm = () => {
                     className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all min-h-[100px]"
                     placeholder="Quem é o decisor que você quer na mesa? (Ex: Diretores de RH de empresas com +100 funcionários)"
                   />
+                  {errors.icp && <span className="text-red-400 text-xs">Campo obrigatório</span>}
                 </div>
 
                 <div className="grid md:grid-cols-2 gap-6">
@@ -484,6 +489,7 @@ const QualificationForm = () => {
                       className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all"
                       placeholder="Quantos novos negócios você aguenta?"
                     />
+                    {errors.targetVolume && <span className="text-red-400 text-xs">Campo obrigatório</span>}
                   </div>
                   <div className="space-y-2">
                     <label className="text-sm font-bold text-white/80 ml-1">Volume atual de prospecção</label>
@@ -492,6 +498,7 @@ const QualificationForm = () => {
                       className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all"
                       placeholder="Como está seu desempenho hoje?"
                     />
+                    {errors.currentVolume && <span className="text-red-400 text-xs">Campo obrigatório</span>}
                   </div>
                 </div>
 
@@ -502,6 +509,7 @@ const QualificationForm = () => {
                     className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all"
                     placeholder="Quantos leads seu time consegue atender por dia?"
                   />
+                  {errors.capacity && <span className="text-red-400 text-xs">Campo obrigatório</span>}
                 </div>
               </div>
 
